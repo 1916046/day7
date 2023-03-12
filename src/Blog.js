@@ -1,28 +1,32 @@
 import React from "react";
-import Like from "./like";
+import { useState } from "react";
+
 import Comments from './comments';
 
-import { useState } from "react";
 
 import "./App.css";
 
 
-const WriterBlog = () => {
+const WriterBlog = (props) => {
   const [blogpost, setblog] = useState({
     posts: [],
     newPost: { title: "", content: "" },
     editing: false,
     editIndex: null
   });
-  
+
+
   const [comments, setComments] = useState([]);
+  
+
 
   const handleCommentSubmit = (newComment) => {
     setComments([...comments, newComment]);
   };
 
   const Added = (e) => {
-    e.preventDefault();const { title, content } = blogpost.newPost;
+    e.preventDefault();
+    const { title, content } = blogpost.newPost;
     if (!title.trim() || !content.trim()) {
       alert("Please enter a title and content for the blog post.");
       return;
@@ -137,13 +141,11 @@ const WriterBlog = () => {
                 })
               }
             />
-             <Like />
-            <Comments comments={comments} onCommentSubmit={handleCommentSubmit} />
-
-           
-
-            <button onClick={() => deleteBlogPost(index)}>Delete</button>
+             <button onClick={() => deleteBlogPost(index)}>Delete</button>
             <button onClick={() => handlingEdit(index, post)}>Edit</button>
+
+            
+            <Comments comments={comments} onCommentSubmit={handleCommentSubmit} />
           </li>
         ))}
       </ul>
